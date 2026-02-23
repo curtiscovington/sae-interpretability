@@ -1,0 +1,54 @@
+seed: 42
+device_preference: mps
+
+data:
+  dataset_a_name: wikitext
+  dataset_a_config: wikitext-2-raw-v1
+  dataset_a_split: train
+  dataset_b_name: codeparrot/github-code-clean
+  dataset_b_config: null
+  dataset_b_split: train
+  text_field_a: text
+  text_field_b: code
+  max_chars_per_example: 400
+  cache_dir: artifacts/hf_cache
+
+model:
+  model_name: EleutherAI/pythia-70m-deduped
+  layer_index: 3
+  activation_stream: mlp_output
+  dtype: float16
+
+collection:
+  seq_len: 32
+  batch_size: 4
+  num_workers: 0
+  tokens_a: 2048
+  tokens_b: 2048
+  chunk_size: 1024
+  output_dir: artifacts/activations
+
+sae:
+  d_sae: 256
+  lr: 0.0008
+  batch_size: 128
+  epochs: 1
+  l1_coeff: 0.0005
+  grad_clip: 1.0
+  checkpoint_every: 50
+  weight_decay: 0.0
+  scheduler: cosine
+  recon_loss: mse
+
+interpret:
+  top_features: 20
+  top_contexts: 10
+  context_window_tokens: 8
+
+outputs:
+  root: outputs
+  results_json: outputs/results.json
+  figures_dir: outputs/figures
+  tables_dir: outputs/tables
+  features_dir: outputs/features
+  checkpoints_dir: artifacts/checkpoints

@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+artifacts/hf_cache/
+artifacts/activations/*.mmap
+artifacts/activations/*.npy
+artifacts/checkpoints/*.pt

@@ -1,0 +1,16 @@
+{
+  "A": {
+    "label": "A",
+    "checkpoint": "artifacts/checkpoints/sae_A.pt",
+    "train_log_csv": "outputs/tables/train_log_A.csv",
+    "d_model": 512,
+    "d_sae": 768
+  },
+  "B": {
+    "label": "B",
+    "checkpoint": "artifacts/checkpoints/sae_B.pt",
+    "train_log_csv": "outputs/tables/train_log_B.csv",
+    "d_model": 512,
+    "d_sae": 768
+  }
+}
