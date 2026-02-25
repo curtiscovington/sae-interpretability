@@ -63,7 +63,12 @@ def main() -> None:
     all_results = {}
 
     for train_label in ["A", "B"]:
-        model = SparseAutoencoder(d_model=d_model, d_sae=cfg.sae.d_sae).to(device)
+        model = SparseAutoencoder(
+            d_model=d_model,
+            d_sae=cfg.sae.d_sae,
+            sparsity_mode=cfg.sae.sparsity_mode,
+            topk=cfg.sae.topk,
+        ).to(device)
         ckpt = Path(cfg.outputs.checkpoints_dir) / f"sae_{train_label}.pt"
         model.load_state_dict(torch.load(ckpt, map_location=device))
         model.eval()
@@ -93,12 +98,17 @@ def main() -> None:
             freq_mag_df.to_csv(Path(cfg.outputs.tables_dir) / f"feature_freq_mag_train{train_label}_eval{eval_label}.csv", index=False)
 
     # selectivity proxy using model A features
-    modelA = SparseAutoencoder(d_model=d_model, d_sae=cfg.sae.d_sae).to(device)
+    modelA = SparseAutoencoder(
+        d_model=d_model,
+        d_sae=cfg.sae.d_sae,
+        sparsity_mode=cfg.sae.sparsity_mode,
+        topk=cfg.sae.topk,
+    ).to(device)
     modelA.load_state_dict(torch.load(Path(cfg.outputs.checkpoints_dir) / "sae_A.pt", map_location=device))
     modelA.eval()
     with torch.no_grad():
-        hA = torch.relu(modelA.encoder(xA.to(device))).cpu().numpy()
-        hB = torch.relu(modelA.encoder(xB.to(device))).cpu().numpy()
+        hA = modelA.encode(xA.to(device)).cpu().numpy()
+        hB = modelA.encode(xB.to(device)).cpu().numpy()
     sel = hA.mean(axis=0) - hB.mean(axis=0)
     pd.DataFrame({"feature": np.arange(len(sel)), "selectivity_A_minus_B": sel}).to_csv(
         Path(cfg.outputs.tables_dir) / "feature_selectivity_AminusB.csv", index=False

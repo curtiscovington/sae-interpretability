@@ -8,15 +8,28 @@ import torch.nn.functional as F
 
 
 class SparseAutoencoder(nn.Module):
-    def __init__(self, d_model: int, d_sae: int):
+    def __init__(self, d_model: int, d_sae: int, sparsity_mode: str = "relu_l1", topk: int = 64):
         super().__init__()
         self.encoder = nn.Linear(d_model, d_sae, bias=True)
         self.decoder = nn.Linear(d_sae, d_model, bias=False)
+        self.sparsity_mode = sparsity_mode
+        self.topk = topk
         nn.init.xavier_uniform_(self.encoder.weight)
         nn.init.xavier_uniform_(self.decoder.weight)
 
+    def encode(self, x: torch.Tensor) -> torch.Tensor:
+        pre = self.encoder(x)
+        h = F.relu(pre)
+        if self.sparsity_mode == "topk":
+            k = min(self.topk, h.shape[-1])
+            vals, idx = torch.topk(h, k=k, dim=-1)
+            mask = torch.zeros_like(h)
+            mask.scatter_(dim=-1, index=idx, src=torch.ones_like(vals))
+            h = h * mask
+        return h
+
     def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-        h = F.relu(self.encoder(x))
+        h = self.encode(x)
         recon = self.decoder(h)
         return recon, h
 

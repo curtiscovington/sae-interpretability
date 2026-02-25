@@ -52,6 +52,8 @@ class SAEConfig:
     weight_decay: float
     scheduler: str
     recon_loss: str
+    sparsity_mode: str = "relu_l1"
+    topk: int = 64
 
 
 @dataclass

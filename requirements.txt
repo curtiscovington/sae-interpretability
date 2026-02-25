@@ -7,3 +7,5 @@ tqdm==4.67.1
 matplotlib==3.10.7
 pandas==2.3.3
 scikit-learn==1.7.2
+streamlit==1.48.1
+plotly==6.3.0

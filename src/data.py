@@ -11,8 +11,13 @@ WIKI_URL = "https://raw.githubusercontent.com/pytorch/examples/main/word_languag
 CODE_URLS = [
     "https://raw.githubusercontent.com/python/cpython/main/Lib/ast.py",
     "https://raw.githubusercontent.com/python/cpython/main/Lib/tokenize.py",
+    "https://raw.githubusercontent.com/python/cpython/main/Lib/pathlib.py",
+    "https://raw.githubusercontent.com/python/cpython/main/Lib/re.py",
+    "https://raw.githubusercontent.com/python/cpython/main/Lib/json/decoder.py",
     "https://raw.githubusercontent.com/pallets/flask/main/src/flask/app.py",
+    "https://raw.githubusercontent.com/pallets/flask/main/src/flask/cli.py",
     "https://raw.githubusercontent.com/numpy/numpy/main/numpy/linalg/__init__.py",
+    "https://raw.githubusercontent.com/numpy/numpy/main/numpy/core/fromnumeric.py",
 ]
 
 
@@ -32,33 +37,35 @@ def _download_text(url: str, timeout: int = 30) -> str:
     return r.text
 
 
+def _chunk_nonempty(text: str) -> list[str]:
+    return [c.strip() for c in text.split("\n\n") if c.strip()]
+
+
 def load_text_stream(spec: TextStreamSpec) -> Iterable[str]:
     name = spec.name.lower()
+
     if "wiki" in name:
         text = _download_text(WIKI_URL)
-        for line in text.splitlines():
-            line = line.strip()
-            if line:
-                yield line[: spec.max_chars_per_example]
-        return
+        chunks = [ln.strip() for ln in text.splitlines() if ln.strip()]
+        while True:
+            for c in chunks:
+                yield c[: spec.max_chars_per_example]
 
     if "code" in name or "github" in name:
-        got_any = False
+        corpora: list[str] = []
         for u in CODE_URLS:
             try:
-                text = _download_text(u)
+                corpora.extend(_chunk_nonempty(_download_text(u)))
             except requests.RequestException as e:
                 print(f"[warn] skipping code source {u}: {e}")
                 continue
-            got_any = True
-            chunks = text.split("\n\n")
-            for c in chunks:
-                c = c.strip()
-                if c:
-                    yield c[: spec.max_chars_per_example]
-        if not got_any:
+
+        if not corpora:
             raise RuntimeError("No code sources could be downloaded.")
-        return
+
+        while True:
+            for c in corpora:
+                yield c[: spec.max_chars_per_example]
 
     raise ValueError(f"Unsupported dataset name: {spec.name}. Use wiki-like for A and code-like for B.")
 

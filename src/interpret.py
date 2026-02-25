@@ -49,13 +49,18 @@ def main() -> None:
     device = get_device(cfg.device_preference)
     hooked = load_model_and_tokenizer(cfg.model.model_name, cfg.model.dtype, device)
 
-    sae = SparseAutoencoder(d_model=d_model, d_sae=cfg.sae.d_sae).to(device)
+    sae = SparseAutoencoder(
+        d_model=d_model,
+        d_sae=cfg.sae.d_sae,
+        sparsity_mode=cfg.sae.sparsity_mode,
+        topk=cfg.sae.topk,
+    ).to(device)
     ckpt = Path(cfg.outputs.checkpoints_dir) / f"sae_{args.label}.pt"
     sae.load_state_dict(torch.load(ckpt, map_location=device))
     sae.eval()
 
     with torch.no_grad():
-        h = torch.relu(sae.encoder(x.to(device))).cpu().numpy()
+        h = sae.encode(x.to(device)).cpu().numpy()
 
     freq = (h > 0).mean(axis=0)
     mag = h.mean(axis=0)

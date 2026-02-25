@@ -38,7 +38,12 @@ def _train_one(cfg, label: str) -> dict:
     val_loader = DataLoader(TensorDataset(x_val), batch_size=cfg.sae.batch_size, shuffle=False)
 
     device = get_device(cfg.device_preference)
-    model = SparseAutoencoder(d_model=d_model, d_sae=cfg.sae.d_sae).to(device)
+    model = SparseAutoencoder(
+        d_model=d_model,
+        d_sae=cfg.sae.d_sae,
+        sparsity_mode=cfg.sae.sparsity_mode,
+        topk=cfg.sae.topk,
+    ).to(device)
 
     optim = torch.optim.AdamW(
         model.parameters(),

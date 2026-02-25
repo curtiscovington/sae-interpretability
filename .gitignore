@@ -1,7 +1,15 @@
 .venv/
 __pycache__/
 *.pyc
+
+# large experiment artifacts
 artifacts/hf_cache/
 artifacts/activations/*.mmap
 artifacts/activations/*.npy
 artifacts/checkpoints/*.pt
+artifacts/layer_sweep/
+artifacts/topk_sweep/
+
+# generated outputs
+outputs/layer_sweep/
+outputs/topk_sweep/
