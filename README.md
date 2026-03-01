@@ -48,6 +48,7 @@ python -m src.collect_acts --config configs/default.yaml
 python -m src.train_sae --config configs/default.yaml
 python -m src.interpret --config configs/default.yaml --label A
 python -m src.interpret --config configs/default.yaml --label B
+python -m src.rank_features --config configs/default.yaml --label A --top-features 200
 python -m src.eval --config configs/default.yaml
 python -m src.viz --config configs/default.yaml
 ```

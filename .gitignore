@@ -7,9 +7,28 @@ artifacts/hf_cache/
 artifacts/activations/*.mmap
 artifacts/activations/*.npy
 artifacts/checkpoints/*.pt
+artifacts/checkpoints_topk_long/*.pt
+artifacts/checkpoints*/
 artifacts/layer_sweep/
 artifacts/topk_sweep/
 
-# generated outputs
+# generated outputs (ignore by default)
 outputs/layer_sweep/
 outputs/topk_sweep/
+outputs/features/
+outputs_topk_long/
+
+# keep curated, commit-worthy summaries here
+reports/
+!reports/
+!reports/README.md
+!reports/**/*.csv
+!reports/**/*.md
+!reports/**/*.json
+
+# local/editor noise
+.DS_Store
+.env
+.env.*
+.vscode/
+.idea/
