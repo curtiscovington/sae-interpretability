@@ -7,7 +7,7 @@ A lightweight, local-only, reproducible experiment for feature probing with Spar
 1. Collects activations from one chosen model layer/stream.
 2. Trains an SAE (`d_model -> d_sae -> d_model`) with ReLU + L1 sparsity.
 3. Evaluates interpretability + generalization across two contrasting datasets.
-4. Produces blog-ready tables/figures and feature summaries.
+4. Produces tables/figures and feature summaries.
 
 ## Defaults
 
@@ -66,33 +66,6 @@ python -m src.viz --config configs/default.yaml
 - Sparsity: average L0 per token, average L1 magnitude, histograms
 - Generalization: train-on-A eval-on-B and train-on-B eval-on-A degradation
 - Optional proxy: feature selectivity (`A - B` mean activation)
-
-## Blog Post Outline
-
-### 1) Research question + hypothesis
-- **Question:** Can SAEs trained on a single transformer layer discover sparse features that are interpretable and transfer across domains?
-- **Hypothesis:** Some features are domain-specific (wiki vs code), while others are shared and robust across datasets.
-
-### 2) Method
-- **Model:** Pythia-70M (decoder-only transformer)
-- **Activation target:** Layer 3, MLP output stream
-- **Data:** Small sampled text corpora from general prose + code
-- **SAE:** Linear encoder/decoder, ReLU hidden, MSE + L1 objective
-
-### 3) Evaluation
-- In-domain reconstruction/sparsity quality
-- Cross-domain generalization degradation
-- Feature-level interpretation by top activating contexts and heuristic labels
-
-### 4) Key results + failure modes
-- Report strongest/weakest transfer paths
-- Show features with clear lexical patterns vs noisy mixed features
-- Failure modes: dead features, over-sparsification, low-variance reconstruction bias
-
-### 5) Limitations + next steps
-- Single layer/stream and small model only
-- No causal interventions yet
-- Next: top-k SAE, multi-layer comparisons, causal feature patching, richer datasets
 
 ## Performance guidance for M1
 
