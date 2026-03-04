@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 
 from .config import load_config
-from .model import load_model_and_tokenizer
+from .model import load_model_and_tokenizer, register_mlp_output_hook
 from .sae import SparseAutoencoder
 from .utils import get_device, set_seed
 
@@ -112,13 +112,11 @@ def main() -> None:
 
     rows = []
 
-    block = model.gpt_neox.layers[cfg.model.layer_index]
-
     def run_group(group_name: str, features: list[int]):
         for f_idx in features:
             for alpha in alphas:
                 hook = intervention_hook_factory(sae, f_idx, alpha)
-                handle = block.mlp.register_forward_hook(hook)
+                handle = register_mlp_output_hook(model, cfg.model.layer_index, hook)
                 try:
                     for theme in probes:
                         target_ids = one_token_target_ids(tokenizer, theme["targets"])

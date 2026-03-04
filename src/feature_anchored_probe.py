@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 
 from .config import load_config
-from .model import load_model_and_tokenizer
+from .model import load_model_and_tokenizer, register_mlp_output_hook
 from .sae import SparseAutoencoder
 from .utils import get_device, set_seed
 
@@ -87,8 +87,7 @@ def collect_feature_activation(model, tokenizer, sae: SparseAutoencoder, layer_i
         collected["max"] = float(feat.max().item())
         return out
 
-    block = model.gpt_neox.layers[layer_idx]
-    handle = block.mlp.register_forward_hook(probe_hook)
+    handle = register_mlp_output_hook(model, layer_idx, probe_hook)
     try:
         enc = tokenizer(prompt, return_tensors="pt")
         with torch.no_grad():
@@ -135,8 +134,6 @@ def main() -> None:
     selected = [int(x["feature"]) for x in candidates["selected"]]
 
     alphas = parse_alphas(args.alphas)
-    block = model.gpt_neox.layers[cfg.model.layer_index]
-
     rows = []
 
     for f_idx in selected:
@@ -173,7 +170,7 @@ def main() -> None:
 
             for a in alphas:
                 hook = intervention_hook_factory(sae, f_idx, a)
-                handle = block.mlp.register_forward_hook(hook)
+                handle = register_mlp_output_hook(model, cfg.model.layer_index, hook)
                 try:
                     act_mean, act_max = collect_feature_activation(
                         model, tokenizer, sae, cfg.model.layer_index, ctx, f_idx, device

@@ -1,0 +1,23 @@
+{
+  "code": {
+    "target_feature": 6631,
+    "controls": "outputs_gemma2_2b/features/gemma_code_200pairs_controls_aggregate.csv",
+    "pairs": 200,
+    "sample_pairs": "outputs_gemma2_2b/features/gemma_code_200pairs_pair_sample.json",
+    "summary": "outputs_gemma2_2b/features/gemma_code_200pairs_with_controls_summary.csv"
+  },
+  "safety": {
+    "target_feature": 14033,
+    "controls": "outputs_gemma2_2b/features/gemma_safety_200pairs_controls_aggregate.csv",
+    "pairs": 200,
+    "sample_pairs": "outputs_gemma2_2b/features/gemma_safety_200pairs_pair_sample.json",
+    "summary": "outputs_gemma2_2b/features/gemma_safety_200pairs_with_controls_summary.csv"
+  },
+  "uncertainty": {
+    "target_feature": 4223,
+    "controls": "outputs_gemma2_2b/features/gemma_uncertainty_200pairs_controls_aggregate.csv",
+    "pairs": 200,
+    "sample_pairs": "outputs_gemma2_2b/features/gemma_uncertainty_200pairs_pair_sample.json",
+    "summary": "outputs_gemma2_2b/features/gemma_uncertainty_200pairs_with_controls_summary.csv"
+  }
+}

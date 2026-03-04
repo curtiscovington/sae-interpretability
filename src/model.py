@@ -33,6 +33,46 @@ def load_model_and_tokenizer(model_name: str, dtype: str = "float16", device: to
     return HookedModel(tokenizer=tokenizer, model=model)
 
 
+def get_transformer_blocks(model: torch.nn.Module):
+    """
+    Return the canonical transformer block list for supported decoder-only families.
+
+    Currently supports:
+    - GPTNeoX (e.g., Pythia): model.gpt_neox.layers
+    - Gemma/Gemma2 (HF): model.model.layers
+    - Llama-style (HF): model.model.layers
+    """
+    if hasattr(model, "gpt_neox") and hasattr(model.gpt_neox, "layers"):
+        return model.gpt_neox.layers
+    if hasattr(model, "model") and hasattr(model.model, "layers"):
+        return model.model.layers
+    raise ValueError(
+        "Unsupported model architecture for block hooks. "
+        "Expected GPTNeoX-style (model.gpt_neox.layers) or Llama/Gemma-style (model.model.layers)."
+    )
+
+
+def get_transformer_block(model: torch.nn.Module, layer_index: int):
+    blocks = get_transformer_blocks(model)
+    return blocks[layer_index]
+
+
+def register_mlp_output_hook(model: torch.nn.Module, layer_index: int, hook_fn):
+    """
+    Register a forward hook on the block MLP output for supported model families.
+    """
+    block = get_transformer_block(model, layer_index)
+
+    # GPTNeoX and many HF decoder families expose `.mlp`
+    if hasattr(block, "mlp"):
+        return block.mlp.register_forward_hook(hook_fn)
+
+    raise ValueError(
+        "Could not find `.mlp` module on selected transformer block; "
+        "mlp_output hooks are unsupported for this architecture."
+    )
+
+
 @contextmanager
 def activation_collector(model: torch.nn.Module, layer_index: int, stream: str = "mlp_output") -> Generator[list[torch.Tensor], None, None]:
     acts: list[torch.Tensor] = []
@@ -44,12 +84,9 @@ def activation_collector(model: torch.nn.Module, layer_index: int, stream: str =
         # hidden_states from full block output
         acts.append(out[0].detach() if isinstance(out, tuple) else out.detach())
 
-    if not hasattr(model, "gpt_neox"):
-        raise ValueError("This project currently expects GPTNeoX-style models (e.g., pythia).")
-
-    block = model.gpt_neox.layers[layer_index]
+    block = get_transformer_block(model, layer_index)
     if stream == "mlp_output":
-        handle = block.mlp.register_forward_hook(hook_mlp)
+        handle = register_mlp_output_hook(model, layer_index, hook_mlp)
     elif stream == "residual":
         handle = block.register_forward_hook(hook_resid)
     else:

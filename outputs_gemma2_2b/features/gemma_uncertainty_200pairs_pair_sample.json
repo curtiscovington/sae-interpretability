@@ -1,0 +1,52 @@
+[
+  {
+    "id": "p1",
+    "a": "I might be wrong, but this estimate could change in the first draft.",
+    "b": "This estimate is stable and should hold in the first draft."
+  },
+  {
+    "id": "p2",
+    "a": "I might be wrong, but this estimate could change during a planning meeting.",
+    "b": "This estimate is stable and should hold during a planning meeting."
+  },
+  {
+    "id": "p3",
+    "a": "I might be wrong, but this estimate could change for a short internal memo.",
+    "b": "This estimate is stable and should hold for a short internal memo."
+  },
+  {
+    "id": "p4",
+    "a": "I might be wrong, but this estimate could change before the deadline.",
+    "b": "This estimate is stable and should hold before the deadline."
+  },
+  {
+    "id": "p5",
+    "a": "I might be wrong, but this estimate could change in a technical review.",
+    "b": "This estimate is stable and should hold in a technical review."
+  },
+  {
+    "id": "p6",
+    "a": "I might be wrong, but this estimate could change as a concise update.",
+    "b": "This estimate is stable and should hold as a concise update."
+  },
+  {
+    "id": "p7",
+    "a": "I might be wrong, but this estimate could change for a stakeholder briefing.",
+    "b": "This estimate is stable and should hold for a stakeholder briefing."
+  },
+  {
+    "id": "p8",
+    "a": "I might be wrong, but this estimate could change in a training example.",
+    "b": "This estimate is stable and should hold in a training example."
+  },
+  {
+    "id": "p9",
+    "a": "I might be wrong, but this estimate could change during a retrospective.",
+    "b": "This estimate is stable and should hold during a retrospective."
+  },
+  {
+    "id": "p10",
+    "a": "I might be wrong, but this estimate could change for a practical guide.",
+    "b": "This estimate is stable and should hold for a practical guide."
+  }
+]

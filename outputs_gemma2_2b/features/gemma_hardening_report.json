@@ -1,0 +1,82 @@
+{
+  "model": "google/gemma-2-2b",
+  "sae": {
+    "release": "gemma-scope-2b-pt-res-canonical",
+    "id": "layer_20/width_16k/canonical",
+    "layer": 20
+  },
+  "seeds": [
+    7,
+    17,
+    27
+  ],
+  "alphas": [
+    0.0,
+    1.5
+  ],
+  "criteria": [
+    {
+      "category": "sports",
+      "target_vs_control": false,
+      "wrong_layer_weaker": false,
+      "wrong_hook_weaker": true,
+      "holdout_transfer": false,
+      "quality_ok": true,
+      "multi_seed_stable": false,
+      "ablation_specific": false,
+      "target_mean_delta_holdout_alpha1p5": -0.03324386477470398,
+      "controls_mean_delta_holdout_alpha1p5": -0.002520126581657678,
+      "wrong_layer_mean_delta": -0.034416526556015015,
+      "wrong_hook_mean_delta": 0.0
+    },
+    {
+      "category": "code",
+      "target_vs_control": true,
+      "wrong_layer_weaker": true,
+      "wrong_hook_weaker": true,
+      "holdout_transfer": true,
+      "quality_ok": true,
+      "multi_seed_stable": false,
+      "ablation_specific": true,
+      "target_mean_delta_holdout_alpha1p5": 0.028769060969352722,
+      "controls_mean_delta_holdout_alpha1p5": -0.04456429823767394,
+      "wrong_layer_mean_delta": -0.003967513795942068,
+      "wrong_hook_mean_delta": 0.0
+    },
+    {
+      "category": "safety",
+      "target_vs_control": false,
+      "wrong_layer_weaker": true,
+      "wrong_hook_weaker": true,
+      "holdout_transfer": true,
+      "quality_ok": true,
+      "multi_seed_stable": true,
+      "ablation_specific": false,
+      "target_mean_delta_holdout_alpha1p5": 0.012115955352783203,
+      "controls_mean_delta_holdout_alpha1p5": 0.01763506222050637,
+      "wrong_layer_mean_delta": 0.0,
+      "wrong_hook_mean_delta": 0.0
+    },
+    {
+      "category": "uncertainty",
+      "target_vs_control": false,
+      "wrong_layer_weaker": true,
+      "wrong_hook_weaker": true,
+      "holdout_transfer": true,
+      "quality_ok": true,
+      "multi_seed_stable": true,
+      "ablation_specific": false,
+      "target_mean_delta_holdout_alpha1p5": 0.006461302284151316,
+      "controls_mean_delta_holdout_alpha1p5": 0.0011013298062607646,
+      "wrong_layer_mean_delta": 0.0,
+      "wrong_hook_mean_delta": 0.0
+    }
+  ],
+  "artifacts": {
+    "full_rows_csv": "outputs_gemma2_2b/features/gemma_hardening_full_rows.csv",
+    "quality_csv": "outputs_gemma2_2b/features/gemma_hardening_quality_seed_rows.csv",
+    "ablation_csv": "outputs_gemma2_2b/features/gemma_hardening_ablation_rows.csv",
+    "criteria_csv": "outputs_gemma2_2b/features/gemma_hardening_criteria_table.csv",
+    "figures_dir": "outputs_gemma2_2b/features/figures"
+  }
+}

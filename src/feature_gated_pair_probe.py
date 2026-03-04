@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 
 from .config import load_config
-from .model import load_model_and_tokenizer
+from .model import load_model_and_tokenizer, register_mlp_output_hook
 from .sae import SparseAutoencoder
 from .utils import get_device, set_seed
 
@@ -118,8 +118,6 @@ def main() -> None:
         raise RuntimeError("No target ids could be derived from probe targets.")
     pairs = probe["pairs"]
 
-    block = model.gpt_neox.layers[cfg.model.layer_index]
-
     rows = []
     for pair in pairs:
         pa = pair["a"]
@@ -130,7 +128,7 @@ def main() -> None:
         base_contrast = base_a - base_b
 
         for alpha in alphas:
-            h = block.mlp.register_forward_hook(
+            h = register_mlp_output_hook(model, cfg.model.layer_index, 
                 gated_residual_hook_factory(
                     sae=sae,
                     feature_idx=args.feature,

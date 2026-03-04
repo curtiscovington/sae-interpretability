@@ -1,0 +1,17 @@
+{
+  "category": "code",
+  "alpha": 1.5,
+  "target_mean": 0.028769060969352722,
+  "target_ci95": [
+    0.028769060969352722,
+    0.028769060969352722
+  ],
+  "controls_mean": -0.04121871606912464,
+  "controls_seed_std": 0.0,
+  "target_vs_controls_pass": true,
+  "wrong_layer_weaker_pass": true,
+  "wrong_hook_weaker_pass": true,
+  "seed_cv_effect": 0.0,
+  "seed_stability_pass_cv_lt_0p2": true,
+  "n_seeds": 7
+}

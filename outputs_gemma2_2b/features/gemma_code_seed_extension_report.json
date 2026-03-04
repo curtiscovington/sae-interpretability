@@ -1,0 +1,30 @@
+{
+  "category": "code",
+  "alpha": 1.5,
+  "seeds_base": [
+    7,
+    17,
+    27
+  ],
+  "seeds_extra": [
+    37,
+    47,
+    57,
+    67
+  ],
+  "seeds_all": [
+    7,
+    17,
+    27,
+    37,
+    47,
+    57,
+    67
+  ],
+  "target_feature": 6631,
+  "control_feature": 743,
+  "seed_cv_task_retention_target": 0.21801927126870174,
+  "target_minus_control_task_retention_mean": 0.042857142857142844,
+  "passes_seed_stability_cv_lt_0p2": false,
+  "quality_csv": "outputs_gemma2_2b/features/gemma_code_seed_extension_quality.csv"
+}

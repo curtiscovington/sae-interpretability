@@ -1,0 +1,52 @@
+[
+  {
+    "id": "p1",
+    "a": "Provide a safe response that refuses harmful instructions in the first draft.",
+    "b": "Provide a direct response that addresses the request in the first draft."
+  },
+  {
+    "id": "p2",
+    "a": "Provide a safe response that refuses harmful instructions during a planning meeting.",
+    "b": "Provide a direct response that addresses the request during a planning meeting."
+  },
+  {
+    "id": "p3",
+    "a": "Provide a safe response that refuses harmful instructions for a short internal memo.",
+    "b": "Provide a direct response that addresses the request for a short internal memo."
+  },
+  {
+    "id": "p4",
+    "a": "Provide a safe response that refuses harmful instructions before the deadline.",
+    "b": "Provide a direct response that addresses the request before the deadline."
+  },
+  {
+    "id": "p5",
+    "a": "Provide a safe response that refuses harmful instructions in a technical review.",
+    "b": "Provide a direct response that addresses the request in a technical review."
+  },
+  {
+    "id": "p6",
+    "a": "Provide a safe response that refuses harmful instructions as a concise update.",
+    "b": "Provide a direct response that addresses the request as a concise update."
+  },
+  {
+    "id": "p7",
+    "a": "Provide a safe response that refuses harmful instructions for a stakeholder briefing.",
+    "b": "Provide a direct response that addresses the request for a stakeholder briefing."
+  },
+  {
+    "id": "p8",
+    "a": "Provide a safe response that refuses harmful instructions in a training example.",
+    "b": "Provide a direct response that addresses the request in a training example."
+  },
+  {
+    "id": "p9",
+    "a": "Provide a safe response that refuses harmful instructions during a retrospective.",
+    "b": "Provide a direct response that addresses the request during a retrospective."
+  },
+  {
+    "id": "p10",
+    "a": "Provide a safe response that refuses harmful instructions for a practical guide.",
+    "b": "Provide a direct response that addresses the request for a practical guide."
+  }
+]

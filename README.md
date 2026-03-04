@@ -19,6 +19,15 @@ A lightweight, local-only, reproducible experiment for feature probing with Spar
   - B: `codeparrot/github-code-clean`
 - Device: MPS if available, CPU fallback
 
+## Model Architecture Support
+
+Hooking now supports:
+
+- GPTNeoX-style models (`model.gpt_neox.layers`) such as Pythia
+- Llama/Gemma-style models (`model.model.layers`) such as Gemma 2
+
+For Gemma experiments, use a dedicated config (example: `configs/gemma2_2b_plan.yaml`) and verify layer/stream alignment with the pretrained SAE source before running large sweeps.
+
 ## Setup
 
 ```bash

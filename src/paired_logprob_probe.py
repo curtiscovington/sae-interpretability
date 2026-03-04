@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 
 from .config import load_config
-from .model import load_model_and_tokenizer
+from .model import load_model_and_tokenizer, register_mlp_output_hook
 from .sae import SparseAutoencoder
 from .utils import get_device, set_seed
 
@@ -96,8 +96,6 @@ def main() -> None:
     probes = json.loads(Path(args.probe_json).read_text())["themes"]
     alphas = parse_alphas(args.alphas)
 
-    block = model.gpt_neox.layers[cfg.model.layer_index]
-
     rows = []
     for theme in probes:
         tids = one_token_ids(tok, theme["targets"])
@@ -107,7 +105,7 @@ def main() -> None:
             base = target_logprob_mass(model, tok, prompt, tids, device)
             for feat in selected:
                 for a in alphas:
-                    h = block.mlp.register_forward_hook(
+                    h = register_mlp_output_hook(model, cfg.model.layer_index, 
                         residual_intervention_hook_factory(sae, feat, a, strength=args.strength)
                     )
                     try:

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "p1",
+    "a": "Write a Python function that validates user input in the first draft.",
+    "b": "Write a clear procedure that validates user input in the first draft."
+  },
+  {
+    "id": "p2",
+    "a": "Write a Python function that validates user input during a planning meeting.",
+    "b": "Write a clear procedure that validates user input during a planning meeting."
+  },
+  {
+    "id": "p3",
+    "a": "Write a Python function that validates user input for a short internal memo.",
+    "b": "Write a clear procedure that validates user input for a short internal memo."
+  },
+  {
+    "id": "p4",
+    "a": "Write a Python function that validates user input before the deadline.",
+    "b": "Write a clear procedure that validates user input before the deadline."
+  },
+  {
+    "id": "p5",
+    "a": "Write a Python function that validates user input in a technical review.",
+    "b": "Write a clear procedure that validates user input in a technical review."
+  },
+  {
+    "id": "p6",
+    "a": "Write a Python function that validates user input as a concise update.",
+    "b": "Write a clear procedure that validates user input as a concise update."
+  },
+  {
+    "id": "p7",
+    "a": "Write a Python function that validates user input for a stakeholder briefing.",
+    "b": "Write a clear procedure that validates user input for a stakeholder briefing."
+  },
+  {
+    "id": "p8",
+    "a": "Write a Python function that validates user input in a training example.",
+    "b": "Write a clear procedure that validates user input in a training example."
+  },
+  {
+    "id": "p9",
+    "a": "Write a Python function that validates user input during a retrospective.",
+    "b": "Write a clear procedure that validates user input during a retrospective."
+  },
+  {
+    "id": "p10",
+    "a": "Write a Python function that validates user input for a practical guide.",
+    "b": "Write a clear procedure that validates user input for a practical guide."
+  }
+]

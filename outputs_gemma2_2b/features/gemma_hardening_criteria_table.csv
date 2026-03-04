@@ -1,0 +1,5 @@
+category,target_vs_control,wrong_layer_weaker,wrong_hook_weaker,holdout_transfer,quality_ok,multi_seed_stable,ablation_specific,target_mean_delta_holdout_alpha1p5,controls_mean_delta_holdout_alpha1p5,wrong_layer_mean_delta,wrong_hook_mean_delta
+sports,False,False,True,False,True,False,False,-0.03324386477470398,-0.002520126581657678,-0.034416526556015015,0.0
+code,True,True,True,True,True,False,True,0.028769060969352722,-0.04456429823767394,-0.003967513795942068,0.0
+safety,False,True,True,True,True,True,False,0.012115955352783203,0.01763506222050637,0.0,0.0
+uncertainty,False,True,True,True,True,True,False,0.006461302284151316,0.0011013298062607646,0.0,0.0

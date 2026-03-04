@@ -1,0 +1,17 @@
+{
+  "model": "google/gemma-2-2b",
+  "sae_release": "gemma-scope-2b-pt-res-canonical",
+  "sae_id": "layer_20/width_16k/canonical",
+  "layer": 20,
+  "selected_features": {
+    "sports": 16242,
+    "code": 6631,
+    "safety": 14033,
+    "uncertainty": 4223
+  },
+  "artifacts": {
+    "feature_diffs_csv": "outputs_gemma2_2b/features/gemma_scope_feature_diffs.csv",
+    "steering_probe_csv": "outputs_gemma2_2b/features/gemma_scope_steering_probe.csv",
+    "steering_probe_summary_csv": "outputs_gemma2_2b/features/gemma_scope_steering_probe_summary.csv"
+  }
+}

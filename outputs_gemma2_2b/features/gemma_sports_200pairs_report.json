@@ -1,0 +1,26 @@
+{
+  "model": "google/gemma-2-2b",
+  "sae_release": "gemma-scope-2b-pt-res-canonical",
+  "sae_id": "layer_20/width_16k/canonical",
+  "layer": 20,
+  "pairs": 200,
+  "target_feature": 16242,
+  "target_feature_mean_activation": 23.270601272583008,
+  "matched_random_controls": [
+    3019,
+    16057,
+    8887,
+    3518,
+    9479,
+    7407,
+    15563,
+    4664
+  ],
+  "alphas": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+  ]
+}

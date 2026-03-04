@@ -1,0 +1,58 @@
+seed: 42
+device_preference: mps
+
+data:
+  dataset_a_name: wikitext
+  dataset_a_config: wikitext-2-raw-v1
+  dataset_a_split: train
+  dataset_b_name: codeparrot/github-code-clean
+  dataset_b_config: null
+  dataset_b_split: train
+  text_field_a: text
+  text_field_b: code
+  max_chars_per_example: 1200
+  cache_dir: artifacts/hf_cache
+
+model:
+  model_name: google/gemma-2-2b
+  # Update once pretrained SAE layer mapping is finalized.
+  layer_index: 12
+  activation_stream: mlp_output
+  dtype: bfloat16
+
+collection:
+  seq_len: 64
+  batch_size: 4
+  num_workers: 0
+  tokens_a: 120000
+  tokens_b: 120000
+  chunk_size: 4096
+  output_dir: artifacts/activations
+
+sae:
+  # If using fully pretrained SAE, these training params are placeholders for compatibility.
+  d_sae: 4096
+  lr: 0.0002
+  batch_size: 256
+  epochs: 1
+  l1_coeff: 0.001
+  grad_clip: 1.0
+  checkpoint_every: 200
+  weight_decay: 0.0
+  scheduler: cosine
+  recon_loss: mse
+  sparsity_mode: topk
+  topk: 64
+
+interpret:
+  top_features: 100
+  top_contexts: 20
+  context_window_tokens: 12
+
+outputs:
+  root: outputs_gemma2_2b
+  results_json: outputs_gemma2_2b/results.json
+  figures_dir: outputs_gemma2_2b/figures
+  tables_dir: outputs_gemma2_2b/tables
+  features_dir: outputs_gemma2_2b/features
+  checkpoints_dir: artifacts/checkpoints_gemma2_2b
